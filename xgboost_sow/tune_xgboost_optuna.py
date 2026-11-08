@@ -17,13 +17,14 @@ warnings.filterwarnings("ignore")
 # -----------------------------------------------------------------------------
 # Rutas
 # -----------------------------------------------------------------------------
+TAG="_min30"
 DATA_DIR = Path("../data/matrices")
-WB = DATA_DIR / "matrices_data.xlsx"
-POGIT_PRED_PATH = DATA_DIR / "pogit_pred_test.csv"  # opcional
+WB = DATA_DIR / f"matrices_data{TAG}.xlsx"
+POGIT_PRED_PATH = DATA_DIR / f"pogit_pred_test.csv"  # opcional
 OUTPUT_DIR = DATA_DIR
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
-# -----------------------------------------------------------------------------
+# ----------------------------------------------------------------------------
 # 1. Cargar datos
 # -----------------------------------------------------------------------------
 print("Cargando matrices...")

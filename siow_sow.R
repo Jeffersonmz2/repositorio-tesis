@@ -8,7 +8,7 @@ library(caret)     # métricas opcionales
 library(tidyr)     # replace_na() (lo usa build_sow_siow)
 
 # >>> Debe coincidir con MIN_MONETARY_T1 usado en code2 (0 -> "_min0", 30 -> "_min30") <<<
-TAG <- "_min20"
+TAG <- "_min30"
 
 # -----------------------------------------------------------------------------
 # A) Cargar matrices V, W

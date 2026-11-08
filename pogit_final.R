@@ -1,8 +1,13 @@
 
 # -----------------------------------------------------------------------------
 # 1. Cargar matrices
+# >>> Debe coincidir con MIN_MONETARY_T1 usado en code2 (0 -> "_min0", 30 -> "_min30") <<<
+TAG <- "_min30"
+
 # -----------------------------------------------------------------------------
-wb <- "data/matrices/matrices_data.xlsx"
+# A) Cargar matrices V, W
+# -----------------------------------------------------------------------------
+wb <- paste0("data/matrices/matrices_data", TAG, ".xlsx")
 
 V_train <- read.xlsx(wb, sheet = "V_train")
 V_test  <- read.xlsx(wb, sheet = "V_test")
