@@ -1,0 +1,15 @@
+# Archivos de configuración de RStudio
+.Rproj.user/
+.Rhistory
+.RData
+.Ruserdata
+
+# Datos pesados o sensibles
+/data/matrices/*.csv
+/data/matrices/*.xlsx
+/data/matrices/*.pkl
+/data/matrices/*.rds
+/data/survey-data/*.csv
+.RDataTmp
+data/survey-data/amazon-purchases.csv
+.env
