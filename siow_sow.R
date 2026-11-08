@@ -102,22 +102,47 @@ build_sow_siow <- function(ids, purchases_tech2, ref_date3, ref_date4,
 # c_train guardado por code2 (misma corrida / mismo TAG)
 c_train <- readRDS(paste0("data/matrices/c_train", TAG, ".rds"))
 
-# Estos objetos vienen de code2: deben estar cargados en la sesion de R
-stopifnot(exists("purchases_tech2"), exists("ref_date3"), exists("ref_date4"))
+# purchases_tech2, ref_date3 y ref_date4 vienen de code2.
+# Si no estan en la sesion de R, se leen de data/matrices/t2_inputs.rds
+# (archivo unico, no depende del umbral; ver instrucciones en el mensaje de error)
+t2_file <- "data/matrices/t2_inputs.rds"
+if (!(exists("purchases_tech2") && exists("ref_date3") && exists("ref_date4"))) {
+  if (file.exists(t2_file)) {
+    t2_inputs       <- readRDS(t2_file)
+    purchases_tech2 <- t2_inputs$purchases_tech2
+    ref_date3       <- t2_inputs$ref_date3
+    ref_date4       <- t2_inputs$ref_date4
+    message("Cargado: ", t2_file)
+  } else {
+    stop(
+      "Faltan purchases_tech2 / ref_date3 / ref_date4.\n",
+      "En la sesion de R donde corriste code2 ejecuta UNA VEZ:\n",
+      '  saveRDS(list(purchases_tech2 = purchases_tech2, ref_date3 = ref_date3, ref_date4 = ref_date4), "data/matrices/t2_inputs.rds")\n',
+      "y vuelve a correr este script."
+    )
+  }
+}
 
 sow_train_df <- build_sow_siow(ids_train, purchases_tech2, ref_date3, ref_date4, "Samsung", c_train)
 sow_test_df  <- build_sow_siow(ids_test,  purchases_tech2, ref_date3, ref_date4, "Samsung", c_train)
 
 # -----------------------------------------------------------------------------
-# Guardar SoW y Siow de TRAIN -> data/matrices/sow_siow_train_min<MIN_MONETARY_T1>.csv
-# (columnas: response_id, sow, siow; es el archivo que lee tune_xgb_sow_siow.py)
+# Guardar SoW y Siow de TRAIN y TEST (columnas: response_id, sow, siow)
+#   data/matrices/sow_siow_train_min<umbral>.csv  <- lo lee tune_xgb_sow_siow.py
+#   data/matrices/sow_siow_test_min<umbral>.csv
 # -----------------------------------------------------------------------------
 dir.create("data/matrices", showWarnings = FALSE, recursive = TRUE)
-stopifnot(identical(as.character(sow_train_df$response_id), ids_train))
+stopifnot(
+  identical(as.character(sow_train_df$response_id), ids_train),
+  identical(as.character(sow_test_df$response_id),  ids_test)
+)
 
 sow_train_file <- paste0("data/matrices/sow_siow_train", TAG, ".csv")
+sow_test_file  <- paste0("data/matrices/sow_siow_test",  TAG, ".csv")
 write.csv(sow_train_df, sow_train_file, row.names = FALSE)
+write.csv(sow_test_df,  sow_test_file,  row.names = FALSE)
 cat("Guardado:", sow_train_file, "| n =", nrow(sow_train_df), "\n")
+cat("Guardado:", sow_test_file,  "| n =", nrow(sow_test_df),  "\n")
 
 SoW_train <- sow_train_df$sow
 SoW_test  <- sow_test_df$sow

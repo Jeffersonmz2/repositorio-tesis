@@ -17,7 +17,7 @@ warnings.filterwarnings("ignore")
 DATA = Path("../data/matrices")
 
 # Mismo valor que MIN_MONETARY_T1 en code2 (0 -> "_min0", 30 -> "_min30")
-MIN_MONETARY_T1 = 0
+MIN_MONETARY_T1 = 30
 TAG = f"_min{MIN_MONETARY_T1}"
 
 WB = DATA / f"matrices_data{TAG}.xlsx"

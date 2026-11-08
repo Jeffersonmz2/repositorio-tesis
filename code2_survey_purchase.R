@@ -846,9 +846,58 @@ write.csv(data.frame(response_id = as.character(test_ids)),
 saveRDS(c_train, paste0("data/matrices/c_train", TAG, ".rds"))
 message("IDs guardados: train=", length(train_ids), " | test=", length(test_ids))
 
-# Si tienes la funcion build_sow_siow() (no esta definida en este script), descomenta:
-# sow_train_df <- build_sow_siow(train_ids, purchases_tech2, ref_date3, ref_date4, "Samsung", c_train)
-# write.csv(sow_train_df, paste0("data/matrices/sow_siow_train", TAG, ".csv"), row.names = FALSE)
+# -----------------------------------------------------------------------------
+# SoW y Siow de TRAIN en T2 -> data/matrices/sow_siow_train_min<MIN_MONETARY_T1>.csv
+# (mismo calculo que el SoW/Siow empirico de TEST que se hace mas abajo;
+#  lo usa tune_xgb_sow_siow.py)
+# -----------------------------------------------------------------------------
+build_sow_siow <- function(ids, purchases_tech2, ref_date3, ref_date4,
+                           brand = "Samsung", c_train) {
+  ids <- as.character(ids)
+  
+  out <- purchases_tech2 %>%
+    dplyr::filter(
+      dplyr::between(order_date, ref_date3, ref_date4),
+      response_id %in% ids
+    ) %>%
+    dplyr::group_by(response_id) %>%
+    dplyr::summarise(
+      amount_brand = sum(dplyr::if_else(tech_brand == brand, total_price, 0), na.rm = TRUE),
+      amount_other = sum(dplyr::if_else(tech_brand != brand, total_price, 0), na.rm = TRUE),
+      .groups = "drop"
+    ) %>%
+    dplyr::right_join(tibble::tibble(response_id = ids), by = "response_id") %>%
+    dplyr::mutate(
+      amount_brand = tidyr::replace_na(amount_brand, 0),
+      amount_other = tidyr::replace_na(amount_other, 0),
+      amount_total = amount_brand + amount_other,
+      siow = pmax(0L, as.integer(round(amount_total / c_train, 0))),
+      sow  = dplyr::if_else(amount_total > 0, amount_brand / amount_total, 0)
+    ) %>%
+    dplyr::select(response_id, sow, siow)
+  
+  # mismo orden que ids
+  out[match(ids, out$response_id), ]
+}
+
+sow_train_df <- build_sow_siow(train_ids, purchases_tech2, ref_date3, ref_date4,
+                               "Samsung", c_train)
+stopifnot(
+  nrow(sow_train_df) == length(train_ids),
+  identical(as.character(sow_train_df$response_id), as.character(train_ids))
+)
+
+sow_train_file <- paste0("data/matrices/sow_siow_train", TAG, ".csv")
+write.csv(sow_train_df, sow_train_file, row.names = FALSE)
+message("Guardado: ", sow_train_file,
+        " | n=", nrow(sow_train_df),
+        " | % ceros SoW train=", round(100 * mean(sow_train_df$sow == 0), 1))
+
+# Entradas de T2 para siow_sow.R (no dependen del umbral; sirven para min0, min30, ...)
+saveRDS(list(purchases_tech2 = purchases_tech2,
+             ref_date3 = ref_date3,
+             ref_date4 = ref_date4),
+        "data/matrices/t2_inputs.rds")
 
 dim(V_train); dim(W_train); length(Y_train)
 dim(V_test);  dim(W_test);  length(Y_test)
