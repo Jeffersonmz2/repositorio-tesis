@@ -13,3 +13,25 @@
 .RDataTmp
 data/survey-data/amazon-purchases.csv
 .env
+
+# Datos pesados y archivos tabulares / comprimidos
+*.csv
+*.xlsx
+data/survey-data.zip
+cat << 'EOF' >> .gitignore
+
+# Datos pesados y archivos tabulares / comprimidos
+*.csv
+*.xlsx
+data/survey-data.zip
+
+# Datos pesados y archivos tabulares / comprimidos
+*.csv
+*.xlsx
+data/survey-data.zip
+cat << 'EOF' >> .gitignore
+
+# Datos pesados y archivos tabulares / comprimidos
+*.csv
+*.xlsx
+data/survey-data.zip
