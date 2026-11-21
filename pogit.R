@@ -11,7 +11,7 @@ library(car)
 # -----------------------------------------------------------------------------
 # 1. Cargar matrices
 # >>> Debe coincidir con MIN_MONETARY_T1 usado en code2 (0 -> "_min0", 30 -> "_min30") <<<
-TAG <- "_min30"
+TAG <- "_min80"
 
 # -----------------------------------------------------------------------------
 # A) Cargar matrices V, W

@@ -1,0 +1,73 @@
+{
+  "datos_csv": "C:\\Users\\jeam2\\Downloads\\tesis\\cod_grupo2\\cod_grupo2\\data\\Matrices\\matrices_data_min80.xlsx",
+  "hash_sha256_csv": "b9e5aefae39d2b09d698c0ff0ecee208eb17bc6aa9ca3619afa4b97ae35ab70c",
+  "n_train": 1752,
+  "modo": "final",
+  "semilla": 123,
+  "B_GAP": 99,
+  "B_PERM": 199,
+  "R_HOPKINS": 100,
+  "B_HOPKINS_PERM": 99,
+  "N_INIT_GAP": 30,
+  "N_INIT_SIL": 30,
+  "K_GAP": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+  ],
+  "CANDIDATOS": [
+    [
+      "A_RFM_3",
+      2
+    ],
+    [
+      "B_RFM_ratio_4",
+      3
+    ],
+    [
+      "B_RFM_ratio_4",
+      4
+    ],
+    [
+      "C_W_6",
+      2
+    ],
+    [
+      "C_W_6",
+      3
+    ],
+    [
+      "C_W_6",
+      5
+    ]
+  ],
+  "CONFIGURACIONES": {
+    "A_RFM_3": [
+      "recency_days_2018_Samsung",
+      "frequency_2018_Samsung",
+      "monetary_2018_Samsung"
+    ],
+    "B_RFM_ratio_4": [
+      "recency_days_2018_Samsung",
+      "frequency_2018_Samsung",
+      "monetary_2018_Samsung",
+      "dollar_avg12_top1_ratio"
+    ],
+    "C_W_6": [
+      "recency_days_2018_Samsung",
+      "frequency_2018_Samsung",
+      "monetary_2018_Samsung",
+      "dollar_avg_12m",
+      "dollar_top1_12m",
+      "dollar_avg12_top1_ratio"
+    ]
+  },
+  "comentario": "Exploratorio: contrastes dependen del modelo nulo; no prueban clústeres naturales"
+}

@@ -1,0 +1,18 @@
+{
+  "configuracion": "B_RFM_ratio_4",
+  "k": 4,
+  "variables": [
+    "recency_days_2018_Samsung",
+    "frequency_2018_Samsung",
+    "monetary_2018_Samsung",
+    "dollar_avg12_top1_ratio"
+  ],
+  "seed": 123,
+  "n_init": 30,
+  "max_iter": 400,
+  "escalado": "Z-score ddof=1 calculado sobre TRAIN",
+  "n_clientes_train_t1": 1752,
+  "procedencia": "W winsorizada en R; clientes del TRAIN de Pogit; variables transaccionales T1",
+  "advertencia": "La cohorte fue filtrada en R utilizando también un criterio de exclusión en T2",
+  "nota": "La selección del modelo se realizó considerando exclusivamente los resultados de TRAIN"
+}

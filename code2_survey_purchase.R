@@ -336,7 +336,7 @@ has_order_id <- "order_id" %in% names(purchases_tech2)
 #-----------------------------------------------------------------------------
 # >>> FILTRO T1: gasto TOTAL en tecnologia (todas las marcas) en T1 >= umbral en USD <<<
 # (cambia SOLO este numero: 0 = sin filtro, 10, 30, 50, ...)
-MIN_MONETARY_T1 <- 30
+MIN_MONETARY_T1 <- 90
 TAG <- paste0("_min", MIN_MONETARY_T1)   # se agrega al nombre de los archivos exportados
 
 # 1) RFM de TODOS los clientes Samsung en T1 (sin filtro)

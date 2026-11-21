@@ -1,0 +1,75 @@
+{
+  "fecha_utc": "2026-11-13T14:03:37.047313+00:00",
+  "firma": {
+    "version_metodo": "1.0-submuestreo-hungarian-prefijos",
+    "sha256_csv": "b9e5aefae39d2b09d698c0ff0ecee208eb17bc6aa9ca3619afa4b97ae35ab70c",
+    "candidatos": [
+      [
+        "A_RFM_3",
+        2
+      ],
+      [
+        "B_RFM_ratio_4",
+        3
+      ],
+      [
+        "B_RFM_ratio_4",
+        4
+      ],
+      [
+        "C_W_6",
+        2
+      ],
+      [
+        "C_W_6",
+        3
+      ],
+      [
+        "C_W_6",
+        5
+      ]
+    ],
+    "fracciones": [
+      0.5,
+      0.6,
+      0.7,
+      0.8,
+      0.9,
+      0.95,
+      0.99
+    ],
+    "repeticiones": [
+      50,
+      100,
+      200,
+      300
+    ],
+    "semilla": 123,
+    "n_init": 30,
+    "max_iter": 400,
+    "tol": 0.0001,
+    "algoritmo": "lloyd",
+    "comprobar_inicializacion": true,
+    "n_init_alternativos": [
+      10,
+      30,
+      50
+    ],
+    "semillas_alternativas": [
+      123,
+      124,
+      125,
+      126,
+      127,
+      321,
+      456,
+      789,
+      2024,
+      2026
+    ],
+    "version_sklearn": "1.9.1",
+    "version_numpy": "2.5.4",
+    "version_scipy": "1.18.1"
+  },
+  "nota": "Una corrida de 300 repeticiones se reutiliza para 50, 100 y 200. Fracciones alternativas son escenarios independientes."
+}
